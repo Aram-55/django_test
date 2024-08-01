@@ -17,6 +17,9 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
+from .api.Author import AuthorView
+
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('api/author', AuthorView.as_view())
 ]
