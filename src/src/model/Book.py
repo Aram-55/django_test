@@ -12,16 +12,15 @@ class Book(models.Model):
     def __str__(self):
         return self.name
 
-    def author_info(self):
-        link = "./admin/model/author/{}/change/"
-        return format_html(
-            '<a href="{}">{}</a>'.format(link,self.id)
-        )
-
-
 
 class BookAdmin(admin.ModelAdmin):
     list_display = ("id", "author_info", "name", "pagination")
     search_fields = ("id", "name")
 
+    def author_info(self, obj):
+        link = "/admin/model/book/{}/change/".format(obj.author.id)
+        return format_html(
+            '<a href="{}">{}</a>'.format(link, " ".join([obj.author.user.first_name,obj.author.user.last_name]))
+        )
 
+    author_info.short_description = "Author"
