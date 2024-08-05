@@ -7,7 +7,7 @@ from django.utils.html import format_html
 class Book(models.Model):
     author = models.ForeignKey(Author, on_delete=models.CASCADE)
     name = models.CharField(max_length=100)
-    pagination = models.IntegerField()
+    pagination = models.PositiveIntegerField()
 
     def __str__(self):
         return self.name
@@ -18,7 +18,7 @@ class BookAdmin(admin.ModelAdmin):
     search_fields = ("id", "name")
 
     def author_info(self, obj):
-        link = "/admin/model/book/{}/change/".format(obj.author.id)
+        link = "/admin/auth/user/{}/change/".format(obj.author.id)
         return format_html(
             '<a href="{}">{}</a>'.format(link, " ".join([obj.author.user.first_name,obj.author.user.last_name]))
         )
